@@ -3,11 +3,17 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import 'react-native-reanimated';
-
+// import { LogProvider } from 'expo';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+  'Warning: Failed prop type',
+  'Non-serializable values were found in the navigation state',
+]);
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -28,12 +34,15 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+    // <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    
+       <Stack  screenOptions={{
+          headerShown: false,
+        }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+      // <StatusBar style="auto" /> 
+    // {/* </ThemeProvider> */}
   );
 }
